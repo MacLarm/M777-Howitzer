@@ -21,3 +21,4 @@ xcuserdata/
 *.out
 *.log
 *.tmp
+.vs/
