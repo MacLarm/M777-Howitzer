@@ -866,7 +866,7 @@ private:
           {7.0, 5.0},   // mapping[2]
           {8.0, 6.5}    // mapping[3]
        };
-       double d = 1.0;
+       double d = 7.0;
        double r = -999.999;  // output
        // exercise
        r = linearInterpolation(mapping, 4 /*numMapping*/, d);
@@ -899,7 +899,7 @@ private:
           {7.0, 5.0},   // mapping[2]
           {8.0, 6.5}    // mapping[3]
        };
-       double d = 1.0;
+       double d = 2.0;
        double r = -999.999;  // output
        // exercise
        r = linearInterpolation(mapping, 4 /*numMapping*/, d);
