@@ -676,9 +676,19 @@ private:
     *         d
     *********************************************************/
    void linearInterpolation_coordinatesZero()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      double d0 = 0;
+      double r0 = 0;
+      double d1 = 8;
+      double r1 = 8;
+      double d = 0;
+      
+      // exercise
+      double r = linearInterpolation(d0, r0, d1, r1, d);
+      
+      // verify
+      assertEquals(r, 0);
+   }  // teardown
 
    /*********************************************************
     * LINEAR INTERPOLATION - coordinate version where (d,r) is (d1,r1)
@@ -692,9 +702,19 @@ private:
     *         d
     *********************************************************/
    void linearInterpolation_coordinatesOne()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      double d0 = 0;
+      double r0 = 0;
+      double d1 = 8;
+      double r1 = 8;
+      double d = 8;
+      
+      // exercise
+      double r = linearInterpolation(d0, r0, d1, r1, d);
+      
+      // verify
+      assertEquals(r, 8);
+   }  // teardown
 
    /*********************************************************
     * LINEAR INTERPOLATION - coordinate version where (d,r) is in middle
@@ -708,9 +728,19 @@ private:
     *         d
     *********************************************************/
    void linearInterpolation_coordinatesMiddle()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      double d0 = 0;
+      double r0 = 0;
+      double d1 = 8;
+      double r1 = 8;
+      double d = 4;
+      
+      // exercise
+      double r = linearInterpolation(d0, r0, d1, r1, d);
+      
+      // verify
+      assertEquals(r, 4);
+   }  // teardown
 
    /*********************************************************
     * LINEAR INTERPOLATION - coordinate version where (d,r) is near one
@@ -724,9 +754,19 @@ private:
     *         d
     *********************************************************/
    void linearInterpolation_coordinatesTop()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      double d0 = 0;
+      double r0 = 0;
+      double d1 = 8;
+      double r1 = 8;
+      double d = 6;
+      
+      // exercise
+      double r = linearInterpolation(d0, r0, d1, r1, d);
+      
+      // verify
+      assertEquals(r, 6);
+   }  // teardown
 
    /*********************************************************
     * LINEAR INTERPOLATION - coordinate version slope of line is negative
@@ -736,14 +776,24 @@ private:
     *    |   3,5 * (d,r)
     *    |        \
     *   r|         \
-    *    |      7,-3 * (d0,r0)
+    *    |      7,-3 * (d1,r1)
     *    +-------------
     *         d
     *********************************************************/
    void linearInterpolation_coordinatesBackwards()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      double d0 = 1;
+      double r0 = 9;
+      double d1 = 7;
+      double r1 = -3;
+      double d = 3;
+      
+      // exercise
+      double r = linearInterpolation(d0, r0, d1, r1, d);
+      
+      // verify
+      assertEquals(r, 5);
+   }  // teardown
 
 
    /*****************************************************************

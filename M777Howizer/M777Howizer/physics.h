@@ -90,7 +90,8 @@ inline double linearInterpolation(double d0, double r0,
                                   double d1, double r1,
                                   double d)
 {
-   return -99.9;
+   double r  = r0 + (r1 - r0) * (d - d0) / (d1 - d0);
+   return r;
 }
 
 /*********************************************************
