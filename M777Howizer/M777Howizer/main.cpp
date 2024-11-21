@@ -1,14 +1,26 @@
-//
-//  main.cpp
-//  M777Howizer
-//
-//  Created by Mckay Larman on 10/30/24.
-//
+/***********************************************************************
+ * Source File:
+ *    MAIN
+ * Author:
+ *    Br. Helfrich
+ * Summary:
+ *    Launches the unit tests - that is all!
+ ************************************************************************/
 
-#include <iostream>
+#include "test.h"
+#include "position.h"
 
-int main(int argc, const char * argv[]) {
-   // insert code here...
-   std::cout << "Hello, World!\n";
+double Position::metersFromPixels = 40.0;
+
+ /************************************
+  * MAIN
+  * There can be only one!
+  ************************************/
+int main()
+{
+   // run the test code.
+   testRunner();
+
+   // return success
    return 0;
 }
