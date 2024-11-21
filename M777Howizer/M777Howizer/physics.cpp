@@ -15,7 +15,23 @@
  *********************************************************/
 double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
 {
-   return -99.9;
+   double d0;
+   double r0;
+   double d1;
+   double r1;
+   int i = 0;
+
+   while (domain > d0 && domain < d1)
+   {
+       d0 = mapping[i].domain;
+       r0 = mapping[i].range;
+       i++;
+   }
+
+   d1 = mapping[i].domain;
+   r1 = mapping[i].range;
+   double r = r0 + (r1 - r0) * (domain - d0) / (d1 - d0);
+   return r;
 }
 
 /*********************************************************
