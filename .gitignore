@@ -22,3 +22,4 @@ xcuserdata/
 *.log
 *.tmp
 .vs/
+.xcodeproj
