@@ -1302,9 +1302,15 @@ private:
      * output: 340m/s
      ********************************************************/
    void speedSoundFromAltitude_0()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 0;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 0);
+       assertEquals(speed, 340);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : 10,000m
@@ -1312,9 +1318,15 @@ private:
      * output: 299.0m/s
      ********************************************************/
    void speedSoundFromAltitude_10000()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 10000;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 10000);
+       assertEquals(speed, 299.0);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : 80,000m
@@ -1322,9 +1334,15 @@ private:
      * output: 269.0m/s
      ********************************************************/
    void speedSoundFromAltitude_80000()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 80000;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 80000);
+       assertEquals(speed, 269.0);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : 5,500m
@@ -1332,9 +1350,15 @@ private:
      * output: 318.0m/s
      ********************************************************/
    void speedSoundFromAltitude_5500()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 5500;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 5500);
+       assertEquals(speed, 318.0);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : 43,333m
@@ -1342,9 +1366,15 @@ private:
      * output: 328.3329m/s
      ********************************************************/
    void speedSoundFromAltitude_43333()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 43333.0;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 43333.0);
+       assertEquals(speed, 328.3329);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : 3,666m
@@ -1352,9 +1382,15 @@ private:
      * output: 325.336m/s
      ********************************************************/
    void speedSoundFromAltitude_3666()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+       double altitude = 3666.0;
+       double speed = -99.99;
+       // exercise
+       speed = speedSoundFromAltitude(altitude);
+       // verify
+       assertEquals(altitude, 3666.0);
+       assertEquals(speed, 325.336);
+   }  // teardown
 
     /*******************************************************
      * SPEED OF SOUND FROM ALTITUDE : on top of Mount Everest
