@@ -8,6 +8,10 @@
  ************************************************************************/
   
  #include "physics.h"  // for the prototypes
+#include <cmath>
+#include <cassert>
+#include <iostream>
+#include <iomanip>
  
  /*********************************************************
  * LINEAR INTERPOLATION
@@ -51,7 +55,40 @@ double gravityFromAltitude(double altitude)
  *********************************************************/
 double densityFromAltitude(double altitude)
 {
-   return -99.9;
+    // Constants
+    const double rho0 = 1.225;      // Sea level air density (kg/m³)
+    const double T0 = 288.15;      // Sea level standard temperature (K)
+    const double L = 0.0065;       // Temperature lapse rate (K/m) (troposphere)
+    const double g = 9.80665;      // Gravitational acceleration (m/s²)
+    const double R = 287.05;       // Specific gas constant for air (J/(kg·K))
+
+    if (altitude < 0)
+        altitude = 0;
+
+    // Troposphere: below 11,000 m
+    if (altitude <= 11000.0)
+    {
+        double T = T0 - L * altitude; // Temperature at given altitude
+        return rho0 * pow(T / T0, g / (L * R) - 1.0);
+    }
+
+    // Stratosphere: 11,000 m to 20,000 m
+    else if (altitude <= 20000.0)
+    {
+        double T11 = T0 - L * 11000.0;                 // Temperature at 11,000 m
+        double rho11 = rho0 * pow(T11 / T0, g / (L * R) - 1.0); // Density at 11,000 m
+        double h_diff = altitude - 11000.0;           // Height difference
+        return rho11 * exp(-g * h_diff / (R * T11));
+    }
+
+    // Above stratosphere (up to 80,000 m): use exponential decay approximation
+    else
+    {
+        double T20 = T0 - L * 11000.0;                 // Approximate constant T above 20,000 m
+        double rho20 = densityFromAltitude(20000.0);  // Density at 20,000 m
+        double h_diff = altitude - 20000.0;           // Height difference
+        return rho20 * exp(-g * h_diff / (R * T20));
+    }
 }
 
 /*********************************************************
@@ -60,7 +97,25 @@ double densityFromAltitude(double altitude)
  ********************************************************/
 double speedSoundFromAltitude(double altitude)
 {
-   return -99.9;
+    // Constants
+    const double T0 = 288.15;      // Sea level standard temperature (K)
+    const double L = 0.0065;       // Temperature lapse rate (K/m) (troposphere)
+    const double R = 287.05;       // Specific gas constant for air (J/(kg·K))
+    const double gamma = 1.4;      // Adiabatic index for air
+
+    // Troposphere: below 11,000 m
+    if (altitude <= 11000.0)
+    {
+        double T = T0 - L * altitude; // Temperature at given altitude
+        return sqrt(gamma * R * T);  // Speed of sound
+    }
+
+    // Stratosphere and higher (temperature assumed constant beyond 11,000 m)
+    else
+    {
+        double T11 = T0 - L * 11000.0; // Temperature at 11,000 m
+        return sqrt(gamma * R * T11);  // Speed of sound
+    }
 }
 
 
