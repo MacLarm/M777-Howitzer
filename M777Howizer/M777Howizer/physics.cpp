@@ -39,7 +39,10 @@ double linearInterpolation(const Mapping mapping[], int numMapping, double domai
  *********************************************************/
 double gravityFromAltitude(double altitude)
 {
-   return -99.9;
+    double g = 9.80665;
+    double r = 6371000.0;
+    double gravity = g * pow(r / (r + altitude), 2);
+   return gravity;
 }
 
 /*********************************************************
