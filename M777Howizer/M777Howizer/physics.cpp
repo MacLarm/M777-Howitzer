@@ -19,21 +19,34 @@
  *********************************************************/
 double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
 {
-   double d0 = mapping[0].domain;
-   double r0 = mapping[0].range;
-   double d1 = mapping[1].domain;
-   double r1 = mapping[1].range;
-   int i = 0;
-
-   do {
-      d0 = mapping[i].domain;
-      r0 = mapping[i].range;
-      i++;
-   } while (domain > d0 && domain < d1 && i < numMapping);
-
-   d1 = mapping[i].domain;
-   r1 = mapping[i].range;
-   double r = r0 + (r1 - r0) * (domain - d0) / (d1 - d0);
+   double r;
+   
+   // Check if our target is smaller than the first item in the list
+   if (domain < mapping[0].domain) {
+      r = mapping[0].range;
+   }
+   // Check if our target is larger than the last item in the list.
+   else if (domain > mapping[numMapping - 1].domain) {
+      r = mapping[numMapping - 1].range;
+   }
+   // The number is in range, find the correct location
+   else {
+      int i = 0;
+      
+      // Find the correct interval for interpolation
+      // Increase the index until the next number is larger than domain
+      while (domain > mapping[i + 1].domain) {
+         i++;
+      }
+      
+      double d0 = mapping[i].domain;
+      double r0 = mapping[i].range;
+      double d1 = mapping[i + 1].domain;
+      double r1 = mapping[i + 1].range;
+      
+      // Perform linear interpolation
+      r = r0 + (r1 - r0) * (domain - d0) / (d1 - d0);
+   }
    return r;
 }
 
@@ -125,6 +138,28 @@ double speedSoundFromAltitude(double altitude)
  *********************************************************/
 double dragFromMach(double speedMach)
 {
-   return -99.9;
+   const Mapping dragCoefficientTable[] =
+   {//  Mach | DragCoefficient
+       {0.000, 0.0000}, // 1
+       {0.300, 0.1629}, // 2
+       {0.500, 0.1659}, // 3
+       {0.700, 0.2031}, // 4
+       {0.890, 0.2597}, // 5
+       {0.920, 0.3010}, // 6
+       {0.960, 0.3287}, // 7
+       {0.980, 0.4002}, // 8
+       {1.000, 0.4258}, // 9
+       {1.020, 0.4335}, // 10
+       {1.060, 0.4483}, // 11
+       {1.240, 0.4064}, // 12
+       {1.530, 0.3663}, // 13
+       {1.990, 0.2897}, // 14
+       {2.870, 0.2297}, // 15
+       {2.890, 0.2306}, // 16
+       {5.000, 0.2656}  // 17
+   };
+   
+   double dragCoefficient = linearInterpolation(dragCoefficientTable, 17, speedMach);
+   return dragCoefficient;
 }
 
