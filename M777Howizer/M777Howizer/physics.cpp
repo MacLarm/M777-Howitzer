@@ -56,10 +56,32 @@ double linearInterpolation(const Mapping mapping[], int numMapping, double domai
  *********************************************************/
 double gravityFromAltitude(double altitude)
 {
-    double g = 9.80665;
-    double r = 6371000.0;
-    double gravity = g * pow(r / (r + altitude), 2);
-   return gravity;
+    const Mapping gravityFromAltitudeTable[] =
+    {//    alt | density
+        {0	    , 9.807},
+        {1000	, 9.804},
+        {2000	, 9.801},
+        {3000	, 9.797},
+        {4000	, 9.794},
+        {5000	, 9.791},
+        {6000	, 9.788},
+        {7000	, 9.785},
+        {8000	, 9.782},
+        {9000	, 9.779},
+        {10000	, 9.776},
+        {15000	, 9.761},
+        {20000	, 9.745},
+        {25000	, 9.730},
+        {30000	, 9.715},
+        {40000	, 9.684},
+        {50000	, 9.654},
+        {60000	, 9.624},
+        {70000	, 9.594},
+        {80000	, 9.564}  // 20
+    };
+
+    double gravAltitude = linearInterpolation(gravityFromAltitudeTable, 20, altitude);
+    return gravAltitude;
 }
 
 /*********************************************************
@@ -102,25 +124,32 @@ double densityFromAltitude(double altitude)
  ********************************************************/
 double speedSoundFromAltitude(double altitude)
 {
-    // Constants
-    const double T0 = 288.15;      // Sea level standard temperature (K)
-    const double L = 0.0065;       // Temperature lapse rate (K/m) (troposphere)
-    const double R = 287.05;       // Specific gas constant for air (J/(kg·K))
-    const double gamma = 1.4;      // Adiabatic index for air
+    const Mapping soundSpeedAltitudeTable[] =
+    {//  Mach | DragCoefficient
+        {0,	340},
+        {1000, 336},
+        {2000, 332},
+        {3000, 328},
+        {4000, 324},
+        {5000, 320},
+        {6000, 316},
+        {7000, 312},
+        {8000, 308},
+        {9000, 303},
+        {10000,	299},
+        {15000,	295},
+        {20000,	295},
+        {25000,	295},
+        {30000,	305},
+        {40000,	324},
+        {50000,	337},
+        {60000,	319},
+        {70000,	289},
+        {80000,	269}
+    };
 
-    // Troposphere: below 11,000 m
-    if (altitude <= 11000.0)
-    {
-        double T = T0 - L * altitude; // Temperature at given altitude
-        return sqrt(gamma * R * T);  // Speed of sound
-    }
-
-    // Stratosphere and higher (temperature assumed constant beyond 11,000 m)
-    else
-    {
-        double T11 = T0 - L * 11000.0; // Temperature at 11,000 m
-        return sqrt(gamma * R * T11);  // Speed of sound
-    }
+    double soundSpeedAltitude = linearInterpolation(soundSpeedAltitudeTable, 20, altitude);
+    return soundSpeedAltitude;
 }
 
 
