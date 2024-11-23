@@ -68,40 +68,32 @@ double gravityFromAltitude(double altitude)
  *********************************************************/
 double densityFromAltitude(double altitude)
 {
-    // Constants
-    const double rho0 = 1.225;      // Sea level air density (kg/m³)
-    const double T0 = 288.15;      // Sea level standard temperature (K)
-    const double L = 0.0065;       // Temperature lapse rate (K/m) (troposphere)
-    const double g = 9.80665;      // Gravitational acceleration (m/s²)
-    const double R = 287.05;       // Specific gas constant for air (J/(kg·K))
-
-    if (altitude < 0)
-        altitude = 0;
-
-    // Troposphere: below 11,000 m
-    if (altitude <= 11000.0)
-    {
-        double T = T0 - L * altitude; // Temperature at given altitude
-        return rho0 * pow(T / T0, g / (L * R) - 1.0);
-    }
-
-    // Stratosphere: 11,000 m to 20,000 m
-    else if (altitude <= 20000.0)
-    {
-        double T11 = T0 - L * 11000.0;                 // Temperature at 11,000 m
-        double rho11 = rho0 * pow(T11 / T0, g / (L * R) - 1.0); // Density at 11,000 m
-        double h_diff = altitude - 11000.0;           // Height difference
-        return rho11 * exp(-g * h_diff / (R * T11));
-    }
-
-    // Above stratosphere (up to 80,000 m): use exponential decay approximation
-    else
-    {
-        double T20 = T0 - L * 11000.0;                 // Approximate constant T above 20,000 m
-        double rho20 = densityFromAltitude(20000.0);  // Density at 20,000 m
-        double h_diff = altitude - 20000.0;           // Height difference
-        return rho20 * exp(-g * h_diff / (R * T20));
-    }
+   const Mapping densityAltitudeTable[] =
+   {//    alt | density
+       {    0, 1.2250000}, // 1
+       { 1000, 1.1120000}, // 2
+       { 2000, 1.0070000}, // 3
+       { 3000, 0.9093000}, // 4
+       { 4000, 0.8194000}, // 5
+       { 5000, 0.7364000}, // 6
+       { 6000, 0.6601000}, // 7
+       { 7000, 0.5900000}, // 8
+       { 8000, 0.5258000}, // 9
+       { 9000, 0.4671000}, // 10
+       {10000, 0.4135000}, // 11
+       {15000, 0.1948000}, // 12
+       {20000, 0.0889100}, // 13
+       {25000, 0.0400800}, // 14
+       {30000, 0.0184100}, // 15
+       {40000, 0.0039960}, // 16
+       {50000, 0.0010270}, // 17
+       {60000, 0.0003097}, // 18
+       {70000, 0.0000828}, // 19
+       {80000, 0.0000185}  // 20
+   };
+   
+   double density = linearInterpolation(densityAltitudeTable, 20, altitude);
+   return density;
 }
 
 /*********************************************************

@@ -1199,7 +1199,7 @@ private:
      ********************************************************/
    void densityFromAltitude_10000()
    {  // setup
-       double altitude = 80000;
+       double altitude = 10000;
        double density = -999.999;
        // exercise
        density = densityFromAltitude(altitude);
