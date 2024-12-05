@@ -65,8 +65,8 @@ private:
    void defaultConstructor()
    {  // SETUP
       Angle a(45);
-      Howitzer h;
       // EXERCISE
+      Howitzer h;
       // VERIFY
       assertUnit(h.muzzleVelocity == 827);
       assertUnit(h.elevation == a);
@@ -84,9 +84,16 @@ private:
      * output:  pos=(0,0)
      *********************************************/
    void getPosition_zero()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   { // SETUP
+      Position p(0,0);
+      Position test;
+      Howitzer h;
+      h.position = p;
+      // EXERSICE
+      test = h.getPosition();
+      // VERIFY
+      assertUnit(h.position == test);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET POSITION MIDDLE

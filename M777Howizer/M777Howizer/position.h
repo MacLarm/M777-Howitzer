@@ -66,7 +66,8 @@ public:
    void addPixelsX(double x) { this->x += x * metersFromPixels; }
    void addPixelsY(double y) { this->y += y * metersFromPixels; }
    void add(const Acceleration& a, const Velocity& v, double t);
-   void reverse() { }
+//   void reverse() { }
+   bool operator== (Position &rhs) { return ((x == rhs.x) && (y == rhs.y)); }
 
 
 private:
