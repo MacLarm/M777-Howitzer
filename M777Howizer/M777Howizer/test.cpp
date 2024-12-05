@@ -1,6 +1,6 @@
 /***********************************************************************
  * Source File:
- *    TEST
+ *    Test : Test runner
  * Author:
  *    Br. Helfrich
  * Summary:
@@ -10,9 +10,12 @@
 #include "test.h"
 #include "testAngle.h"
 #include "testPosition.h"
+#include "testPhysics.h"
 #include "testVelocity.h"
 #include "testAcceleration.h"
-#include "testPhysics.h"
+#include "testGround.h"
+#include "testHowitzer.h"
+#include "testProjectile.h"
 
 // This code, and the similar IF_DEF in testRunner(), is to ensure that
 // you can see the text output (called the console window) and OpenGL's
@@ -43,6 +46,9 @@ void testRunner()
    TestAngle().run();
    TestAcceleration().run();
    TestPosition().run();
-   TestVelocity().run();
    TestPhysics().run();
+   TestVelocity().run();
+//   TestGround().run();
+   TestHowitzer().run();
+   TestProjectile().run();
 }
