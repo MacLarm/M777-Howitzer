@@ -37,6 +37,7 @@ public:
    Angle()                  : radians(0.0)               {}
    Angle(const Angle& rhs)  : radians(rhs.getRadians())  {}
    Angle(double degrees)    : radians(this->normalize(degrees * (M_PI / 180)))           {}
+   Angle & operator=(Angle &rhs) { this->radians = rhs.radians; return *this; }
 
    // Getters
    double getDegrees() const { return radians * (180/M_PI); }
@@ -80,6 +81,7 @@ public:
    void setDxDy(double dx, double dy)  { radians = this->normalize(atan(dx/dy)); }
    
    Angle operator+(double degrees) const { return Angle(); }
+   bool operator==(Angle &rhs) const { return radians == rhs.radians;}
 
 private:
 

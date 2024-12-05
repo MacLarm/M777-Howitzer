@@ -63,9 +63,14 @@ private:
      *                 and the muzzle velocity is correct)
      *********************************************/
    void defaultConstructor()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Angle a(45);
+      Howitzer h;
+      // EXERCISE
+      // VERIFY
+      assertUnit(h.muzzleVelocity == 827);
+      assertUnit(h.elevation == a);
+   }  // TEARDOWN
 
    /*****************************************************************
     *****************************************************************
