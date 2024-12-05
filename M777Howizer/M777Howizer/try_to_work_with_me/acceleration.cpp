@@ -1,6 +1,6 @@
 /***********************************************************************
  * Source File:
- *    ACCELERATION 
+ *    ACCELERATION
  * Author:
  *    <your name here>
  * Summary:
@@ -12,17 +12,23 @@
 
 #include <cmath>
 
-
-
 /*********************************************
  * ACCELERATION : SET
  *  set from angle and direction
  *********************************************/
 void Acceleration::set(const Angle & a, double magnitude)
 {
-   
+   double radians = a.getRadians();
+   ddx = magnitude * sin(radians);
+   ddy = magnitude * cos(radians);
 }
-void AccelerationDummy::set(const Angle& a, double magnitude)
+
+/*********************************************
+* ACCELERATION : ADD
+* a += a
+*********************************************/
+void Acceleration::add(const Acceleration& acceleration)
 {
-   assert(false);
+   ddx += acceleration.ddx;
+   ddy += acceleration.ddy;
 }
