@@ -63,9 +63,16 @@ private:
      *                 and the muzzle velocity is correct)
      *********************************************/
    void defaultConstructor()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      
+      // EXERCISE
+      Howitzer h;
+      // VERIFY
+      assertUnit(h.muzzleVelocity == 827);
+      assertUnit(h.elevation.radians == 45 * (M_PI / 180)); // default constructor for angle will set degree to radians.
+      assertUnit(h.position.x == 0);
+      assertUnit(h.position.y == 0);
+   }  // TEARDOWN
 
    /*****************************************************************
     *****************************************************************
@@ -79,9 +86,16 @@ private:
      * output:  pos=(0,0)
      *********************************************/
    void getPosition_zero()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      Position p(0,0);
+      h.position = p;
+      // EXERCISE
+      Position checker = h.getPosition();
+      // VERIFY
+      assertUnit(checker.x == 0);
+      assertUnit(checker.y == 0);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET POSITION MIDDLE
@@ -89,9 +103,16 @@ private:
      * output:  pos=(123.4, 567.8)
     *********************************************/
    void getPosition_middle()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      Position p(123.4, 567.8);
+      h.position = p;
+      // EXERCISE
+      Position checker = h.getPosition();
+      // VERIFY
+      assertUnit(checker.x == 123.4);
+      assertUnit(checker.y == 567.8);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET MUZZLE VELOCITY - SLOW SPEED
@@ -99,9 +120,14 @@ private:
      * output:  m=24.68
     *********************************************/
    void getMuzzleVelocity_slow()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.muzzleVelocity=(24.68);
+      // EXERCISE
+      double m = h.getMuzzleVelocity();
+      // VERIFY
+      assertUnit(m == 24.68);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET MUZZLE VELOCITY - STANDARD SPEED
@@ -109,9 +135,14 @@ private:
      * output:  m=827
     *********************************************/
    void getMuzzleVelocity_standard()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.muzzleVelocity=(827.00);
+      // EXERCISE
+      double m = h.getMuzzleVelocity();
+      // VERIFY
+      assertUnit(m == 827);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET ELEVATION - up
@@ -119,9 +150,14 @@ private:
      * output:  e=0
     *********************************************/
    void getElevation_up()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 0.0;
+      // EXERCISE
+      Angle e = h.getElevation();
+      // VERIFY
+      assertUnit(e.radians == 0);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET ELEVATION - right
@@ -129,9 +165,14 @@ private:
      * output:  e=0.4
     *********************************************/
    void getElevation_right()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 0.4;
+      // EXERCISE
+      Angle e = h.getElevation();
+      // VERIFY
+      assertUnit(e.radians == 0.4);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    GET ELEVATION - left
@@ -139,9 +180,14 @@ private:
      * output:  e=5.8
     *********************************************/
    void getElevation_left()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 5.8;
+      // EXERCISE
+      Angle e = h.getElevation();
+      // VERIFY
+      assertUnit(e.radians == 5.8);
+   }  // TEARDOWN
 
    /*****************************************************************
     *****************************************************************
