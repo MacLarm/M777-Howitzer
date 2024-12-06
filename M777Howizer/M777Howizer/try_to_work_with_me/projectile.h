@@ -14,6 +14,7 @@
 #include "velocity.h"
 #include "physics.h"
 #include "uiDraw.h"
+#include "angle.h"
 
 #define DEFAULT_PROJECTILE_WEIGHT 46.7       // kg
 #define DEFAULT_PROJECTILE_RADIUS 0.077545   // m
@@ -32,13 +33,29 @@ public:
    friend ::TestProjectile;
 
    // create a new projectile with the default settings
-   Projectile() : mass(-99.9), radius(-99.9) {}
+   Projectile() : mass(DEFAULT_PROJECTILE_WEIGHT), radius(DEFAULT_PROJECTILE_RADIUS) {};
 
 
 
    // advance the round forward until the next unit of time
    void advance(double simulationTime) {}
-
+   void reset() 
+   {
+       mass = DEFAULT_PROJECTILE_WEIGHT;
+       radius = DEFAULT_PROJECTILE_RADIUS;
+       flightPath.clear();
+   }
+   
+   void fire(Position pos, double time, Angle angle, double vel)
+   {
+       Projectile::PositionVelocityTime pvt;
+       pvt.pos = pos;   
+       pvt.t = time;
+       Velocity v;
+       v.set(angle, vel);
+       pvt.v = v;
+       flightPath.push_back(pvt);
+   }
 
 
 

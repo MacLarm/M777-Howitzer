@@ -61,7 +61,11 @@ private:
     *********************************************/
    void defaultConstructor()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+
+      assertEquals(bullet.mass, 46.7);
+      assertEquals(bullet.radius, 0.077545);
+      assertEquals(bullet.flightPath.size(), 0);
    }
 
    /*********************************************
@@ -71,7 +75,16 @@ private:
     *********************************************/
    void reset_empty()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+       bullet.mass = -99;
+       bullet.radius = -99;
+       bullet.flightPath.clear();
+
+       bullet.reset();
+
+       assertEquals(bullet.mass, 46.7);
+       assertEquals(bullet.radius, 0.077545);
+       assertEquals(bullet.flightPath.size(), 0);
    }
 
    /*********************************************
@@ -81,7 +94,27 @@ private:
     *********************************************/
    void reset_full()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+       bullet.mass = -99;
+       bullet.radius = -99;
+       bullet.flightPath.clear();
+
+       Projectile::PositionVelocityTime pvt;
+       pvt.pos.x = 100.0;
+       pvt.pos.y = 200.0;
+       pvt.v.dx = 50.0;
+       pvt.v.dy = 40.0;
+       pvt.t = 100.0;
+       bullet.flightPath.push_back(pvt);
+       bullet.flightPath.push_back(pvt);
+       bullet.flightPath.push_back(pvt);
+
+       bullet.reset();
+
+
+       assertEquals(bullet.mass, 46.7);
+       assertEquals(bullet.radius, 0.077545);
+       assertEquals(bullet.flightPath.size(), 0);
    }
 
 
@@ -98,7 +131,29 @@ private:
     *********************************************/
    void fire_right()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+       Angle a;
+       Position p;
+       a.setDegrees(90);
+       p.x = 111;
+       p.y = 222;
+
+       bullet.fire(p, 1, a, 100);
+
+       assertUnit(bullet.flightPath.size() == 1);
+       assertEquals(bullet.mass, 46.7);
+       assertEquals(bullet.radius, 0.077545);
+       assertUnit(!bullet.flightPath.empty());
+       if (!bullet.flightPath.empty())
+       {
+           assertEquals(bullet.flightPath.back().pos.x, 111); // 100 + 50*1 + .5(-0.0799)*1*1
+           assertEquals(bullet.flightPath.back().pos.y, 222); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
+           assertEquals(bullet.flightPath.back().v.dx, 100);   // 50 + (-0.0799)*1
+           assertEquals(bullet.flightPath.back().v.dy, 0);  //40 + (-9.8064-0.0638)*1
+           assertEquals(bullet.flightPath.back().t, 1);
+       }
+       // teardown
+       //teardownStandardFixture();
    }
 
    /*********************************************
@@ -108,7 +163,29 @@ private:
     *********************************************/
    void fire_left()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+       Angle a;
+       Position p;
+       Velocity v;
+       a.setDegrees(90);
+       p.x = 111;
+       p.y = 222;
+       v.dx = 100;
+
+       bullet.fire(p, 1, a, 100);
+
+       assertUnit(bullet.flightPath.size() == 1);
+       assertEquals(bullet.mass, 46.7);
+       assertEquals(bullet.radius, 0.077545);
+       assertUnit(!bullet.flightPath.empty());
+       if (!bullet.flightPath.empty())
+       {
+           assertEquals(bullet.flightPath.back().pos.x, 111); // 100 + 50*1 + .5(-0.0799)*1*1
+           assertEquals(bullet.flightPath.back().pos.y, 222); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
+           assertEquals(bullet.flightPath.back().v.dx, 100);   // 50 + (-0.0799)*1
+           assertEquals(bullet.flightPath.back().v.dy, 0);  //40 + (-9.8064-0.0638)*1
+           assertEquals(bullet.flightPath.back().t, 1);
+       }
    }
 
    /*********************************************
@@ -118,7 +195,29 @@ private:
     *********************************************/
    void fire_up()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile bullet;
+       Angle a;
+       Position p;
+       Velocity v;
+       a.setDegrees(0);
+       p.x = 111;
+       p.y = 222;
+       v.dx = 100;
+
+       bullet.fire(p, 1, a, 100);
+
+       assertUnit(bullet.flightPath.size() == 1);
+       assertEquals(bullet.mass, 46.7);
+       assertEquals(bullet.radius, 0.077545);
+       assertUnit(!bullet.flightPath.empty());
+       if (!bullet.flightPath.empty())
+       {
+           assertEquals(bullet.flightPath.back().pos.x, 111); // 100 + 50*1 + .5(-0.0799)*1*1
+           assertEquals(bullet.flightPath.back().pos.y, 222); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
+           assertEquals(bullet.flightPath.back().v.dx, 0);   // 50 + (-0.0799)*1
+           assertEquals(bullet.flightPath.back().v.dy, 100);  //40 + (-9.8064-0.0638)*1
+           assertEquals(bullet.flightPath.back().t, 1);
+       }
    }
 
    /*****************************************************************
@@ -190,7 +289,36 @@ private:
     *********************************************/
    void advance_diagonalUp()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       // setup
+       setupStandardFixture();
+       Position pos;
+       Projectile p;
+       Projectile::PositionVelocityTime pvt;
+       p.flightPath.push_back(pvt);
+       p.flightPath.push_back(pvt);
+       pvt.pos.x = 100.0;
+       pvt.pos.y = 200.0;
+       pvt.v.dx = 50.0;
+       pvt.v.dy = 40.0;
+       pvt.t = 100.0;
+       p.flightPath.push_back(pvt);
+       // exercise
+       p.advance(101.0);
+       // verify
+       assertUnit(p.flightPath.size() == 4);
+       assertEquals(p.mass, 46.7);
+       assertEquals(p.radius, 0.077545);
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 149.9600); // 100 + 50*1 + .5(-0.0799)*1*1
+           assertEquals(p.flightPath.back().pos.y, 235.0648); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
+           assertEquals(p.flightPath.back().v.dx, 49.9201);   // 50 + (-0.0799)*1
+           assertEquals(p.flightPath.back().v.dy, 30.1297);  //40 + (-9.8064-0.0638)*1
+           assertEquals(p.flightPath.back().t, 101.0);
+       }
+       // teardown
+       teardownStandardFixture();
    }
 
    /*********************************************
@@ -225,7 +353,7 @@ private:
       assertUnit(!p.flightPath.empty());
       if (!p.flightPath.empty())
       {
-         assertEquals(p.flightPath.back().pos.x, 149.9601); // 100 + 50*1 + .5(-0.0799)*1*1
+         assertEquals(p.flightPath.back().pos.x, 149.9201); // 100 + 50*1 + .5(-0.0799)*1*1
          assertEquals(p.flightPath.back().pos.y, 155.1287); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
          assertEquals(p.flightPath.back().v.dx, 49.9201);   // 50 + (-0.0799)*1
          assertEquals(p.flightPath.back().v.dy, -49.7425);  //-40 + (-9.8064+0.0638)*1*1
