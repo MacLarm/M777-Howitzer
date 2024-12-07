@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="acceleration.cpp" />
     <ClCompile Include="angle.cpp" />
+    <ClCompile Include="extraCode.cpp" />
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="physics.cpp" />
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="acceleration.h" />
     <ClInclude Include="angle.h" />
+    <ClInclude Include="extraCode.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="howitzer.h" />
     <ClInclude Include="physics.h" />

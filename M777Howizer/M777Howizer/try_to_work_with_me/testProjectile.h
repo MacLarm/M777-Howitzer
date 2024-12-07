@@ -233,8 +233,20 @@ private:
     *********************************************/
    void advance_nothing()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       // Setup
+       setupStandardFixture();
+       Projectile p; // No flightPath or initial state is set.
+
+       // Exercise
+       //p.advance(101.0);
+
+       // Verify
+       assertUnit(p.flightPath.empty()); // Ensure no changes occurred to flightPath.
+
+       // Teardown
+       teardownStandardFixture();
    }
+
 
    /*********************************************
     * name:    ADVANCE : the projectile is stationary and falls down
@@ -247,8 +259,37 @@ private:
     *********************************************/
    void advance_fall()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       // Setup
+       setupStandardFixture();
+       Position pos;
+       Projectile p;
+       Projectile::PositionVelocityTime pvt;
+       pvt.pos.x = 100.0;
+       pvt.pos.y = 200.0;
+       pvt.v.dx = 0.0;
+       pvt.v.dy = 0.0;
+       pvt.t = 100.0;
+       p.flightPath.push_back(pvt);
+
+       // Exercise
+       p.advance(101.0);
+
+       // Verify
+       assertUnit(p.flightPath.size() == 2); // A new state should be added.
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 100.0);    // 100 + 0*1
+           assertEquals(p.flightPath.back().pos.y, 195.0968); // 200 + 0*1 + 0.5(-9.8064)*1*1
+           assertEquals(p.flightPath.back().v.dx, 0.0);       // 0 + 0*1
+           assertEquals(p.flightPath.back().v.dy, -9.8064);   // 0 + (-9.8064)*1
+           assertEquals(p.flightPath.back().t, 101.0);
+       }
+
+       // Teardown
+       teardownStandardFixture();
    }
+
 
    /*********************************************
     * name:    ADVANCE : the projectile is traveling horizontally
@@ -261,8 +302,39 @@ private:
     *********************************************/
    void advance_horizontal()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       // Setup
+       setupStandardFixture();
+       Position pos;
+       Projectile p;
+       Projectile::PositionVelocityTime pvt;
+       p.flightPath.push_back(pvt);
+       p.flightPath.push_back(pvt);
+       pvt.pos.x = 100.0;
+       pvt.pos.y = 200.0;
+       pvt.v.dx = 50.0;
+       pvt.v.dy = 0.0;
+       pvt.t = 100.0;
+       p.flightPath.push_back(pvt);
+
+       // Exercise
+       p.advance(101.0);
+
+       // Verify
+       assertUnit(p.flightPath.size() == 4);
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 149.9756); // 100 + 50*1 + 0.5(-0.0487)*1*1
+           assertEquals(p.flightPath.back().pos.y, 195.0968); // 200 + 0*1 + 0.5(-9.8064)*1*1
+           assertEquals(p.flightPath.back().v.dx, 49.9513);   // 50 + (-0.0487)*1
+           assertEquals(p.flightPath.back().v.dy, -9.8064);   // 0 + (-9.8064)*1
+           assertEquals(p.flightPath.back().t, 101.0);
+       }
+
+       // Teardown
+       teardownStandardFixture();
    }
+
 
    /*********************************************
     * name:    ADVANCE : the projectile is traveling up, no horizontal position change
@@ -275,8 +347,39 @@ private:
     *********************************************/
    void advance_up()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       // Setup
+       setupStandardFixture();
+       Position pos;
+       Projectile p;
+       Projectile::PositionVelocityTime pvt;
+       p.flightPath.push_back(pvt);
+       p.flightPath.push_back(pvt);
+       pvt.pos.x = 100.0;
+       pvt.pos.y = 200.0;
+       pvt.v.dx = 0.0;
+       pvt.v.dy = 100.0;
+       pvt.t = 100.0;
+       p.flightPath.push_back(pvt);
+
+       // Exercise
+       p.advance(101.0);
+
+       // Verify
+       assertUnit(p.flightPath.size() == 4);
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 100.0);    // 100 + 0*1 + 0.5(0)*1*1
+           assertEquals(p.flightPath.back().pos.y, 294.9021); // 200 + 100*1 + 0.5(-9.8064-0.3893)*1*1
+           assertEquals(p.flightPath.back().v.dx, 0.0);       // 0 + 0*1
+           assertEquals(p.flightPath.back().v.dy, 89.8042);   // 100 + (-9.8064-0.3893)
+           assertEquals(p.flightPath.back().t, 101.0);
+       }
+
+       // Teardown
+       teardownStandardFixture();
    }
+
 
    /*********************************************
     * name:    ADVANCE : the projectile is traveling up and across
