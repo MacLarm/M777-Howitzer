@@ -201,9 +201,18 @@ private:
      * output:  1px <= x <= 9px
      *********************************************/
    void generatePosition_small()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      Position posUpperRight;
+      posUpperRight.metersFromPixels = 1;
+      posUpperRight.x = 10;
+      posUpperRight.y = 10;
+      // EXERCISE
+      h.generatePosition(posUpperRight);
+      // VERIFY
+      assertUnit(1 <= h.position.x);
+      assertUnit(h.position.x <= 9);
+   }  // TEARDOWN
 
     /*********************************************
     * name:    GENERATE POSITION large board
@@ -211,9 +220,18 @@ private:
     * output:  100px <= x <= 900px
     *********************************************/
    void generatePosition_large()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      Position posUpperRight;
+      posUpperRight.metersFromPixels = 1;
+      posUpperRight.x = 1000;
+      posUpperRight.y = 1000;
+      // EXERCISE
+      h.generatePosition(posUpperRight);
+      // VERIFY
+      assertUnit(100 <= h.position.x);
+      assertUnit(h.position.x <= 900);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RAISE to the right/down
@@ -221,9 +239,14 @@ private:
     * output:  h.elevation=0.6radians
     *********************************************/
    void raise_rightDown()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 0.5;
+      // EXERCISE
+      h.raise(-0.1);
+      // VERIFY
+      assertUnit(h.elevation.radians == 0.6);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RAISE to the right/up
@@ -231,9 +254,14 @@ private:
     * output:  h.elevation=0.4radians
     *********************************************/
    void raise_rightUp()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 0.5;
+      // EXERCISE
+      h.raise(0.1);
+      // VERIFY
+      assertUnit(h.elevation.radians == 0.4);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RAISE to the left down
@@ -241,9 +269,14 @@ private:
     * output:  h.elevation=-0.6radians
     *********************************************/
    void raise_leftDown()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = (2 * M_PI) - 0.5;
+      // EXERCISE
+      h.raise(-0.1);
+      // VERIFY
+      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.6));
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RAISE to the left up
@@ -251,9 +284,14 @@ private:
     * output:  h.elevation=0.4radians
     *********************************************/
    void raise_leftUp()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = (2 * M_PI) - 0.5;
+      // EXERCISE
+      h.raise(0.1);
+      // VERIFY
+      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.4));
+   }  // TEARDOWN
 
    /*********************************************
     * name:    ROTATE CLOCKWISE no wrapping
@@ -261,9 +299,14 @@ private:
     * output:  h.elevation=1.53
     *********************************************/
    void rotate_clock()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 1.23;
+      // EXERCISE
+      h.rotate(0.3);
+      // VERIFY
+      assertUnit(h.elevation.radians == 1.53);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    ROTATE COUNTER CLOCKWISE no wrapping
@@ -271,9 +314,14 @@ private:
     * output:  h.elevation=0.93
     *********************************************/
    void rotate_counterClock()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 1.23;
+      // EXERCISE
+      h.rotate((2 * M_PI) - .3);
+      // VERIFY
+      assertUnit(h.elevation.radians == 0.93);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    ROTATE CLOCKWISE CLOCKWISE WRAP BY 2PI
@@ -281,9 +329,14 @@ private:
     * output:  h.elevation=.1
     *********************************************/
    void rotate_wrapClock()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = ((2 * M_PI) + -0.1);
+      // EXERCISE
+      h.rotate(0.2);
+      // VERIFY
+      assertUnit(h.elevation.radians == 0.1);
+   }  // TEARDOWN
 
    /*********************************************
     * name:    ROTATE COUNTER CLOCKWISE WRAP BY 4PI
@@ -291,9 +344,14 @@ private:
     * output:  h.elevation=6.1 (2pi + -0.1)
     *********************************************/
    void rotate_wrapCounterClock()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // SETUP
+      Howitzer h;
+      h.elevation.radians = 0.1;
+      // EXERCISE
+      h.rotate((-0.2 - (4 * M_PI)));
+      // VERIFY
+      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.1));
+   }  // TEARDOWN
 
    /*****************************************************************
     *****************************************************************
