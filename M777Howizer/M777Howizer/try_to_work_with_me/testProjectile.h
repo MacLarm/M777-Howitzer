@@ -328,9 +328,7 @@ private:
        {
            assertEquals(p.flightPath.back().pos.x, 149.9756); // 100 + 50*1 + 0.5(-0.0487)*1*1
            assertEquals(p.flightPath.back().pos.y, 195.0968); // 200 + 0*1 + 0.5(-9.8064)*1*1
-          cout << p.flightPath.back().v.dx << endl;
            assertEquals(p.flightPath.back().v.dx, 49.9513);   // 50 + (-0.0487)*1
-          cout << p.flightPath.back().v.dy << endl;
            assertEquals(p.flightPath.back().v.dy, -9.8064);   // 0 + (-9.8064)*1
            assertEquals(p.flightPath.back().t, 101.0);
        }
@@ -460,7 +458,7 @@ private:
       assertUnit(!p.flightPath.empty());
       if (!p.flightPath.empty())
       {
-         assertEquals(p.flightPath.back().pos.x, 149.9201); // 100 + 50*1 + .5(-0.0799)*1*1
+         assertEquals(p.flightPath.back().pos.x, 149.9601); // 100 + 50*1 + .5(-0.0799)*1*1
          assertEquals(p.flightPath.back().pos.y, 155.1287); // 200 +-40*1 + .5(-9.8064+0.0638)*1*1
          assertEquals(p.flightPath.back().v.dx, 49.9201);   // 50 + (-0.0799)*1
          assertEquals(p.flightPath.back().v.dy, -49.7425);  //-40 + (-9.8064+0.0638)*1*1

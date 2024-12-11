@@ -48,7 +48,6 @@ public:
       pvt = flightPath.back();
       double time = simulationTime - pvt.t;
 
-
       double velocity = pvt.v.getSpeed();
       double mach = velocity / speedSoundFromAltitude(pvt.pos.getMetersY());
       double airDensity = densityFromAltitude(pvt.pos.getMetersY());
@@ -56,7 +55,7 @@ public:
       double gravity = gravityFromAltitude(pvt.pos.getMetersY());
       double drag = 0.5 * dragCoefficient * airDensity * velocity * velocity * areaCircle();
       double dragAccel = drag / mass;
-      double angle = atan2(pvt.pos.getMetersY(), pvt.pos.getMetersX());
+      double angle = atan2(pvt.v.getDX(), pvt.v.getDY());
 
       double ddx = -dragAccel * sin(angle);
       double ddy = -dragAccel * cos(angle) - gravity;
