@@ -60,13 +60,15 @@ private:
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void defaultConstructor()
-   {
+   {  // SETUP
+      
+      // EXERCISE
        Projectile bullet;
-
+      // VERIFY
       assertEquals(bullet.mass, 46.7);
       assertEquals(bullet.radius, 0.077545);
       assertEquals(bullet.flightPath.size(), 0);
-   }
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RESET from empty
@@ -74,18 +76,18 @@ private:
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void reset_empty()
-   {
+   {  // SETUP
        Projectile bullet;
        bullet.mass = -99;
        bullet.radius = -99;
        bullet.flightPath.clear();
-
+      // EXERCISE
        bullet.reset();
-
+      // VERIFY
        assertEquals(bullet.mass, 46.7);
        assertEquals(bullet.radius, 0.077545);
        assertEquals(bullet.flightPath.size(), 0);
-   }
+   }  // TEARDOWN
 
    /*********************************************
     * name:    RESET with a non-zero flight path
@@ -93,12 +95,12 @@ private:
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void reset_full()
-   {
+   {  // SETUP
        Projectile bullet;
        bullet.mass = -99;
        bullet.radius = -99;
        bullet.flightPath.clear();
-
+      
        Projectile::PositionVelocityTime pvt;
        pvt.pos.x = 100.0;
        pvt.pos.y = 200.0;
@@ -108,14 +110,13 @@ private:
        bullet.flightPath.push_back(pvt);
        bullet.flightPath.push_back(pvt);
        bullet.flightPath.push_back(pvt);
-
+      // EXERCISE
        bullet.reset();
-
-
+      // VERIFY
        assertEquals(bullet.mass, 46.7);
        assertEquals(bullet.radius, 0.077545);
        assertEquals(bullet.flightPath.size(), 0);
-   }
+   }  // TEARDOWN
 
 
    /*****************************************************************
@@ -130,16 +131,16 @@ private:
     * output:  flightPath={pos=111,222 v=100,0 t=1}
     *********************************************/
    void fire_right()
-   {
+   {  // SETUP
        Projectile bullet;
        Angle a;
        Position p;
        a.setDegrees(90);
        p.x = 111;
        p.y = 222;
-
+      // EXERCISE
        bullet.fire(p, 1, a, 100);
-
+      // VERIFY
        assertUnit(bullet.flightPath.size() == 1);
        assertEquals(bullet.mass, 46.7);
        assertEquals(bullet.radius, 0.077545);
