@@ -44,34 +44,40 @@ public:
    // advance the round forward until the next unit of time
    void advance(double simulationTime) 
    {
-       Projectile::PositionVelocityTime pvt;
-       pvt = flightPath.back();
-       double time = simulationTime - pvt.t;
+      Projectile::PositionVelocityTime pvt;
+      pvt = flightPath.back();
+      double time = simulationTime - pvt.t;
 
 
-           double velocity = pvt.v.getSpeed();
-           double mach = velocity / speedSoundFromAltitude(pvt.pos.getMetersY());
-           double airDensity = densityFromAltitude(pvt.pos.getMetersY());
-           double dragCoefficient = dragFromMach(mach);
-           double gravity = gravityFromAltitude(pvt.pos.getMetersY());
-           double drag = 0.5 * dragCoefficient * airDensity * velocity * velocity * areaCircle();
-           double dragAccel = drag / mass;
-           double angle = atan2(pvt.pos.getMetersY(), pvt.pos.getMetersX());
+      double velocity = pvt.v.getSpeed();
+      double mach = velocity / speedSoundFromAltitude(pvt.pos.getMetersY());
+      double airDensity = densityFromAltitude(pvt.pos.getMetersY());
+      double dragCoefficient = dragFromMach(mach);
+      double gravity = gravityFromAltitude(pvt.pos.getMetersY());
+      double drag = 0.5 * dragCoefficient * airDensity * velocity * velocity * areaCircle();
+      double dragAccel = drag / mass;
+      double angle = atan2(pvt.pos.getMetersY(), pvt.pos.getMetersX());
 
-           double ddx = -dragAccel * sin(angle);
-           double ddy = -dragAccel * cos(angle) - gravity;
-           double x = pvt.pos.getMetersX();
-           double y = pvt.pos.getMetersY();
-           x += pvt.v.getDX() * time + 0.5 * ddx * time * time;
-           y += pvt.v.getDY() * time + 0.5 * ddy * time * time;
-           Position pos;
-           pos.setMetersX(x);
-           pos.setMetersY(y);
-           fire(pos, simulationTime, angle, velocity);
-  
-
-
-
+      double ddx = -dragAccel * sin(angle);
+      double ddy = -dragAccel * cos(angle) - gravity;
+      double x = pvt.pos.getMetersX();
+      double y = pvt.pos.getMetersY();
+      x += pvt.v.getDX() * time + 0.5 * ddx * time * time;
+      y += pvt.v.getDY() * time + 0.5 * ddy * time * time;
+      double dx = pvt.v.getDX() + (ddx * time);
+      double dy = pvt.v.getDY() + (ddy * time);
+      Velocity newVelocity(dx,dy);
+      
+      PositionVelocityTime newPvt;
+      Position pos;
+      pos.setMetersX(x);
+      pos.setMetersY(y);
+      newPvt.pos = pos;
+      newPvt.v = newVelocity;
+      newPvt.t = simulationTime;
+      flightPath.push_back(newPvt);
+      
+//           fire(pos, simulationTime, angle, velocity);
    }
    void reset() 
    {

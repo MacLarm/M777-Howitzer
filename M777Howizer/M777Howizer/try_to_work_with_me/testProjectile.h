@@ -12,6 +12,7 @@
 
 #include "projectile.h"
 #include "unitTest.h"
+#include <iostream>
 
 
 using namespace std;
@@ -327,7 +328,9 @@ private:
        {
            assertEquals(p.flightPath.back().pos.x, 149.9756); // 100 + 50*1 + 0.5(-0.0487)*1*1
            assertEquals(p.flightPath.back().pos.y, 195.0968); // 200 + 0*1 + 0.5(-9.8064)*1*1
+          cout << p.flightPath.back().v.dx << endl;
            assertEquals(p.flightPath.back().v.dx, 49.9513);   // 50 + (-0.0487)*1
+          cout << p.flightPath.back().v.dy << endl;
            assertEquals(p.flightPath.back().v.dy, -9.8064);   // 0 + (-9.8064)*1
            assertEquals(p.flightPath.back().t, 101.0);
        }
