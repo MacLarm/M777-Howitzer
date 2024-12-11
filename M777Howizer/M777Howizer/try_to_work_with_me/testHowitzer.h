@@ -88,13 +88,18 @@ private:
    void getPosition_zero()
    {  // SETUP
       Howitzer h;
-      Position p(0,0);
-      h.position = p;
+      h.position.x = 0;
+      h.position.y = 0;
+      Position pos;
+      pos.x = 99.9;
+      pos.y = 99.9;
       // EXERCISE
-      Position checker = h.getPosition();
+      pos = h.getPosition();
       // VERIFY
-      assertUnit(checker.x == 0);
-      assertUnit(checker.y == 0);
+      assertEquals(pos.x, 0);
+      assertEquals(pos.y, 0);
+      assertEquals(h.position.x, 0);
+      assertEquals(h.position.y, 0);
    }  // TEARDOWN
 
    /*********************************************
@@ -105,13 +110,18 @@ private:
    void getPosition_middle()
    {  // SETUP
       Howitzer h;
-      Position p(123.4, 567.8);
-      h.position = p;
+      h.position.x = 123.4;
+      h.position.y = 567.8;
+      Position pos;
+      pos.x = 99.9;
+      pos.y = 99.9;
       // EXERCISE
-      Position checker = h.getPosition();
+      pos = h.getPosition();
       // VERIFY
-      assertUnit(checker.x == 123.4);
-      assertUnit(checker.y == 567.8);
+      assertEquals(pos.x, 123.4);
+      assertEquals(pos.y, 567.8);
+      assertEquals(h.position.x, 123.4);
+      assertEquals(h.position.y, 567.8);
    }  // TEARDOWN
 
    /*********************************************
@@ -126,7 +136,8 @@ private:
       // EXERCISE
       double m = h.getMuzzleVelocity();
       // VERIFY
-      assertUnit(m == 24.68);
+      assertEquals(m, 24.68);
+      assertEquals(h.muzzleVelocity, 24.68);
    }  // TEARDOWN
 
    /*********************************************
@@ -141,7 +152,8 @@ private:
       // EXERCISE
       double m = h.getMuzzleVelocity();
       // VERIFY
-      assertUnit(m == 827);
+      assertEquals(m, 827.00);
+      assertEquals(h.muzzleVelocity, 827.00);
    }  // TEARDOWN
 
    /*********************************************
@@ -154,9 +166,10 @@ private:
       Howitzer h;
       h.elevation.radians = 0.0;
       // EXERCISE
-      Angle e = h.getElevation();
+      Angle a = h.getElevation();
       // VERIFY
-      assertUnit(e.radians == 0);
+      assertEquals(a.radians, 0);
+      assertEquals(h.elevation.radians, 0);
    }  // TEARDOWN
 
    /*********************************************
@@ -169,9 +182,10 @@ private:
       Howitzer h;
       h.elevation.radians = 0.4;
       // EXERCISE
-      Angle e = h.getElevation();
+      Angle a = h.getElevation();
       // VERIFY
-      assertUnit(e.radians == 0.4);
+      assertEquals(a.radians, 0.4);
+      assertEquals(h.elevation.radians, 0.4);
    }  // TEARDOWN
 
    /*********************************************
@@ -186,7 +200,7 @@ private:
       // EXERCISE
       Angle e = h.getElevation();
       // VERIFY
-      assertUnit(e.radians == 5.8);
+      assertEquals(e.radians, 5.8);
    }  // TEARDOWN
 
    /*****************************************************************
@@ -245,7 +259,7 @@ private:
       // EXERCISE
       h.raise(-0.1);
       // VERIFY
-      assertUnit(h.elevation.radians == 0.6);
+      assertEquals(h.elevation.radians, 0.6);
    }  // TEARDOWN
 
    /*********************************************
@@ -260,7 +274,7 @@ private:
       // EXERCISE
       h.raise(0.1);
       // VERIFY
-      assertUnit(h.elevation.radians == 0.4);
+      assertEquals(h.elevation.radians, 0.4);
    }  // TEARDOWN
 
    /*********************************************
@@ -275,7 +289,7 @@ private:
       // EXERCISE
       h.raise(-0.1);
       // VERIFY
-      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.6));
+      assertEquals(h.elevation.radians, ((2 * M_PI) - 0.6));
    }  // TEARDOWN
 
    /*********************************************
@@ -290,7 +304,7 @@ private:
       // EXERCISE
       h.raise(0.1);
       // VERIFY
-      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.4));
+      assertEquals(h.elevation.radians, ((2 * M_PI) - 0.4));
    }  // TEARDOWN
 
    /*********************************************
@@ -305,7 +319,7 @@ private:
       // EXERCISE
       h.rotate(0.3);
       // VERIFY
-      assertUnit(h.elevation.radians == 1.53);
+      assertEquals(h.elevation.radians, 1.53);
    }  // TEARDOWN
 
    /*********************************************
@@ -318,9 +332,9 @@ private:
       Howitzer h;
       h.elevation.radians = 1.23;
       // EXERCISE
-      h.rotate((2 * M_PI) - .3);
+      h.rotate((2 * M_PI) - .30);
       // VERIFY
-      assertUnit(h.elevation.radians == 0.93);
+      assertEquals(h.elevation.radians, 0.93);
    }  // TEARDOWN
 
    /*********************************************
@@ -335,7 +349,7 @@ private:
       // EXERCISE
       h.rotate(0.2);
       // VERIFY
-      assertUnit(h.elevation.radians == 0.1);
+      assertEquals(h.elevation.radians, 0.1);
    }  // TEARDOWN
 
    /*********************************************
@@ -350,7 +364,7 @@ private:
       // EXERCISE
       h.rotate((-0.2 - (4 * M_PI)));
       // VERIFY
-      assertUnit(h.elevation.radians == ((2 * M_PI) - 0.1));
+      assertEquals(h.elevation.radians, ((2 * M_PI) - 0.1));
    }  // TEARDOWN
 
    /*****************************************************************
