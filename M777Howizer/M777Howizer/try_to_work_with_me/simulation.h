@@ -9,6 +9,10 @@
 
 #pragma once
 #include "position.h"
+#include "howitzer.h"
+#include "ground.h"
+#include "projectile.h"
+#include "uiInteract.h" // for INTERFACE
 
 
  /*********************************************
@@ -18,6 +22,19 @@
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) {}
+   Simulator(const Position & posUpperRight)
+   {
+      ground = Ground(posUpperRight);
+      howitzer.generatePosition(posUpperRight);
+      ground.reset(howitzer.getPosition());
+   }
+   
+   void display();
+   void advance();
+   void input(const Interface* pUI);
 
+private:
+   Howitzer howitzer;
+   Projectile projectile;
+   Ground ground;
 };

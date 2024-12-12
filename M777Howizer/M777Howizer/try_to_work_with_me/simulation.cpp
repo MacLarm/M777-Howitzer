@@ -8,3 +8,10 @@
  ************************************************************************/
 
  #include "simulation.h"  // for SIMULATION
+
+void Simulator::display()
+{
+   ogstream gout;
+   ground.draw(gout);
+   howitzer.draw(gout, 1);
+}
