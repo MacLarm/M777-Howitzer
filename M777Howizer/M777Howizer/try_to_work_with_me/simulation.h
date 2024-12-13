@@ -30,8 +30,11 @@ public:
    }
    
    void display();
-   void advance();
+   void advance() { projectile.advance(1); }
    void input(const Interface* pUI);
+   void fire() { projectile.fire(howitzer.getPosition(), 1, howitzer.getElevation(), howitzer.getMuzzleVelocity()); }
+   void genPos();
+   
 
 private:
    Howitzer howitzer;

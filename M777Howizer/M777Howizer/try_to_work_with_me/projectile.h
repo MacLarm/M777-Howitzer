@@ -95,9 +95,8 @@ public:
        pvt.v = v;
        flightPath.push_back(pvt);
    }
-
-  
-
+   
+   void drawProjectile(ogstream & gout);
 
 private:
 

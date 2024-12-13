@@ -42,7 +42,7 @@ class Howitzer
       {
          gout.drawHowitzer(position,
             elevation.getRadians(),
-            flightTime);
+            3);
       }
 
       // where is the howitzer at right now?
