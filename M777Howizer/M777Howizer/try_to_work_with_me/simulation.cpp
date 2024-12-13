@@ -14,7 +14,7 @@ void Simulator::display()
    ogstream gout;
    ground.draw(gout);
    howitzer.draw(gout, 1);
-//   projectile.drawProjectile(gout);
+   projectile.drawProjectile(gout);
 }
 
 void Simulator::input(const Interface* pUI)

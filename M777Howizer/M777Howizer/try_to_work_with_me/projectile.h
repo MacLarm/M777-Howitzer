@@ -75,6 +75,8 @@ public:
       newPvt.v = newVelocity;
       newPvt.t = simulationTime;
       flightPath.push_back(newPvt);
+      if (flightPath.size() >= 20)
+          flightPath.pop_front();
       
 //           fire(pos, simulationTime, angle, velocity);
    }
@@ -84,6 +86,7 @@ public:
        radius = DEFAULT_PROJECTILE_RADIUS;
        flightPath.clear();
    }
+
    
    void fire(Position pos, double time, Angle angle, double vel)
    {
@@ -95,8 +98,22 @@ public:
        pvt.v = v;
        flightPath.push_back(pvt);
    }
+
+   bool isFired()
+   {
+       return flightPath.size() > 0;
+   }
    
    void drawProjectile(ogstream & gout);
+
+   Position getPos()
+   {
+       PositionVelocityTime pvt;
+       pvt = flightPath.back();
+       Position pos;
+       pos = pvt.pos;
+       return pos;
+   }
 
 private:
 
@@ -107,6 +124,16 @@ private:
       Position pos;
       Velocity v;
       double t;
+
+      //PositionVelocityTime& operator = (PositionVelocityTime& rhs) 
+      //{ 
+      //    if (this != &rhs) { // Avoid self-assignment
+      //        pos = rhs.pos;
+      //        v = rhs.v;
+      //        t = rhs.t;
+      //    }
+      //    return  *this;  
+      //}
    };
 
    double mass;           // weight of the M795 projectile. Defaults to 46.7 kg

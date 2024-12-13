@@ -33,10 +33,11 @@ void callBack(const Interface* pUI, void* p)
    pSim->input(pUI);
    
    // move the bullet
-//   pSim->advance();
-   
+   pSim->advance();
+
    // Display
    pSim->display();
+   
    
    
 }

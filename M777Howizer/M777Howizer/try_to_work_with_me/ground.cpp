@@ -44,7 +44,7 @@ double Ground::getElevationMeters(const Position& pos) const
    if (pos.getPixelsX() >= 0.0 && pos.getPixelsX() < (int)posUpperRight.getPixelsX())
       posImpact.setPixelsY(ground[(int)pos.getPixelsX()]);
    else
-      posImpact.setPixelsY(0.0);
+      posImpact.setPixelsY(ground[(int)pos.getPixelsY()]);
 
    return posImpact.getMetersY();
 }

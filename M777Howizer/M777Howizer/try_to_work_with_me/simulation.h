@@ -27,17 +27,40 @@ public:
       ground = Ground(posUpperRight);
       howitzer.generatePosition(posUpperRight);
       ground.reset(howitzer.getPosition());
+      projectile.reset();
+      time = 0;
    }
    
    void display();
-   void advance() { projectile.advance(1); }
+   void advance()
+   {
+       if (projectile.isFired() && !hitGround())
+       {
+           time += 0.5;
+           projectile.advance(time);
+       }
+   }
    void input(const Interface* pUI);
-   void fire() { projectile.fire(howitzer.getPosition(), 1, howitzer.getElevation(), howitzer.getMuzzleVelocity()); }
-   void genPos();
-   
+   void fire() { time = 0;  projectile.fire(howitzer.getPosition(), time, howitzer.getElevation(), howitzer.getMuzzleVelocity()); }
+   //void genPos();
+
+
+   bool hitGround()
+   {
+       Position bulletPos = projectile.getPos();
+       double elevation = ground.getElevationMeters(bulletPos);
+       if (elevation <= 0) return true;
+       
+       return false;
+   }
+
+
+
+
 
 private:
    Howitzer howitzer;
    Projectile projectile;
    Ground ground;
+   double time;
 };
