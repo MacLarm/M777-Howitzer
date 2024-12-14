@@ -114,6 +114,15 @@ public:
        pos = pvt.pos;
        return pos;
    }
+   
+   double getVelocity()
+   {
+      PositionVelocityTime pvt;
+      pvt = flightPath.back();
+      Velocity v;
+      v = pvt.v;
+      return v.getSpeed();
+   }
 
 private:
 

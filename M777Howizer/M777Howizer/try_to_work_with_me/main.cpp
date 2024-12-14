@@ -37,9 +37,6 @@ void callBack(const Interface* pUI, void* p)
 
    // Display
    pSim->display();
-   
-   
-   
 }
 
 double Position::metersFromPixels = 40.0;
