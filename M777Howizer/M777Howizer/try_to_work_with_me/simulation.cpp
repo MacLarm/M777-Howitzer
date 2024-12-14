@@ -17,6 +17,13 @@ void Simulator::display()
    projectile.drawProjectile(gout);
 }
 
+void Simulator::displayStats(const Position& posUpperRight)
+{
+    ogstream gout;
+    gout.drawText(posUpperRight, "Altitude: ");
+    
+}
+
 void Simulator::input(const Interface* pUI)
 {
    // input to rotate howitzer
@@ -32,7 +39,7 @@ void Simulator::input(const Interface* pUI)
       howitzer.raise(-0.003);
    
    // Open Fire!
-   if (pUI->isSpace())
+   if (pUI->isSpace() && !projectile.isFired())
       this->fire();
    
 }

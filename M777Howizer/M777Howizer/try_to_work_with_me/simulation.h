@@ -13,6 +13,7 @@
 #include "ground.h"
 #include "projectile.h"
 #include "uiInteract.h" // for INTERFACE
+#define CLOSE_ENOUGH 500
 
 
  /*********************************************
@@ -24,6 +25,7 @@ class Simulator
 public:
    Simulator(const Position & posUpperRight)
    {
+      upperRight = posUpperRight;
       ground = Ground(posUpperRight);
       howitzer.generatePosition(posUpperRight);
       ground.reset(howitzer.getPosition());
@@ -44,15 +46,35 @@ public:
    void fire() { time = 0;  projectile.fire(howitzer.getPosition(), time, howitzer.getElevation(), howitzer.getMuzzleVelocity()); }
    //void genPos();
 
+   double computeDistance(Position pos1, Position pos2)
+   {
+       double x = pos1.getMetersX() - pos2.getMetersX();
+       double y = pos1.getMetersY() - pos2.getMetersY();
+       return sqrt((x * x) + (y * y));
+   }
 
    bool hitGround()
    {
        Position bulletPos = projectile.getPos();
        double elevation = ground.getElevationMeters(bulletPos);
-       if (elevation <= 0) return true;
+       if (bulletPos.getMetersY() < elevation)
+       {
+           if (computeDistance(bulletPos, ground.getTarget()) < CLOSE_ENOUGH)
+           {
+               howitzer.generatePosition(upperRight);
+               ground.reset(howitzer.getPosition());
+           }
+           projectile.reset();
+           return true;
+       }
        
        return false;
+
+
+
    }
+
+   void displayStats(const Position& posUpperRight);
 
 
 
@@ -62,5 +84,6 @@ private:
    Howitzer howitzer;
    Projectile projectile;
    Ground ground;
+   Position upperRight;
    double time;
 };
