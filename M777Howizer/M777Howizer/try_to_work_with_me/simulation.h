@@ -74,7 +74,21 @@ public:
 
    }
 
-   void displayStats(const Position& posUpperRight);
+   void displayStats(const Position& posUpperRight)
+   {
+       double altitude;
+       double distance;
+       double speed;
+       double hangTime;
+
+       Position start = howitzer.getPosition();
+       Position changingPos = projectile.getPos();
+       distance = start.getMetersX() - changingPos.getMetersX();
+       if (distance < 0) { distance = distance * -1; }
+       altitude = start.getMetersY();
+
+   }
+  
 
 
 
