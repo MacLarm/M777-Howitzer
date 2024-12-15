@@ -20,72 +20,47 @@ void Simulator::display()
    ground.draw(gout);
    howitzer.draw(gout, time);
    projectile.drawProjectile(gout);
-//   displayStats();
-   
-    double altitude = 0;
-    double distance = 0;
-    double speed = 0;
-    double hangTime = 0;
-   
-   if (time > 0) // we got isues in here when it resets.
-   {
-      altitude = getAltitude();
-      distance = computeDistance(howitzer.getPosition(), projectile.getPos());
-      speed = projectile.getVelocity();
-      hangTime = time;
-   }
-   else
-   {
-      altitude = 0;
-      distance = 0;
-      speed = 0;
-      hangTime = 0;
-   }
-   
-   gout.drawText(Position(700,500), "Altitude: "); // its only drawing in the bottom for some reason.
+   displayStats(gout);
 }
-
-// May delete this function completely.
-//   |
-//  \|/
-//   V
 
 /******************************************
  * SIMULATOR: DISPLAY STATS
  * Display the stats of the howitzer and projectile.
  ******************************************/
-void Simulator::displayStats()
+void Simulator::displayStats(ogstream & gout)
 {
-   ogstream gout;
-    double altitude = 0;
-    double distance = 0;
-    double speed = 0;
-    double hangTime = 0;
+   // All the variables for displaying the stats.
+   double angle = howitzer.getElevation().getDegrees();
+   double altitude = 0;
+   double distance = 0;
+   double speed = 0;
+   double hangTime = 0;
    
-   if (time > 0)
+   // Im sure there are better ways to do this...
+   if (projectile.isFired() && !hitGround())
    {
+      // Assign the values!
       altitude = getAltitude();
-      distance = computeDistance(howitzer.getPosition(), projectile.getPos());
+      distance = computeDistance(howitzer.getPosition(), projectile.getPosition());
       speed = projectile.getVelocity();
       hangTime = time;
    }
-   else
-   {
-      altitude = 0;
-      distance = 0;
-      speed = 0;
-      hangTime = 0;
-   }
    
-   gout.drawText(Position(0,500), "Altitude: ");
+   // Now to draw the text.
    
-//   gout.setf(ios::fixed | ios::showpoint);
-//   gout.precision(1);
-//   
-//   gout << "Altitude: " << altitude << "s\n";
-//   gout << "Distance: " << distance << "s\n";
-//   gout << "Speed: "    << speed    << "s\n";
-//   gout << "Time: "     << hangTime << "s\n";
+   // Put gout in the right spot.
+   gout.setPosition(Position(22000, 18000)); // These are the numbers it wanted to be in the upper corner.
+   
+   // Make it all formatted nicely
+   gout.setf(ios::fixed | ios::showpoint);
+   gout.precision(1);
+   
+   // The text in question gets added to gout.
+   gout << "Angle:     " << angle <<    " degrees\n"
+        << "Altitude:  " << altitude << " m\n"
+        << "Distance:  " << distance << " km\n"
+        << "Speed:     " << speed <<    " m/s\n"
+        << "Hang time: " << hangTime << " s\n";
 }
 
 /******************************************
@@ -99,6 +74,7 @@ void Simulator::advance()
         time += 0.5;
         projectile.advance(time);
     }
+   
 }
 
 /******************************************
@@ -141,7 +117,7 @@ double Simulator::computeDistance(Position pos1, Position pos2)
  ******************************************/
 bool Simulator::hitGround()
 {
-   Position bulletPos = projectile.getPos(); // where the bullet is.
+   Position bulletPos = projectile.getPosition(); // where the bullet is.
    double elevation = ground.getElevationMeters(bulletPos); // How high off the ground the bullet is.
    // see if we are below the ground.
    if (bulletPos.getMetersY() < elevation)
@@ -167,6 +143,6 @@ bool Simulator::hitGround()
  ******************************************/
 double Simulator::getAltitude()
 {
-   double altitude = ground.getElevationMeters(projectile.getPos());
+   double altitude = ground.getElevationMeters(projectile.getPosition());
    return altitude;
 }

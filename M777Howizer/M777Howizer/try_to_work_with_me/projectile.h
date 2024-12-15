@@ -106,7 +106,7 @@ public:
    
    void drawProjectile(ogstream & gout);
 
-   Position getPos()
+   Position getPosition()
    {
        PositionVelocityTime pvt;
        pvt = flightPath.back();

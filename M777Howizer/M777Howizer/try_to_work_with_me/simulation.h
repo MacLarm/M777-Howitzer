@@ -46,7 +46,7 @@ private:
    void fire() { time = 0;  projectile.fire(howitzer.getPosition(), time, howitzer.getElevation(), howitzer.getMuzzleVelocity()); }
    double computeDistance(Position pos1, Position pos2);
    bool hitGround();
-   void displayStats();
+   void displayStats(ogstream & gout);
    double getAltitude();
    
    Howitzer howitzer;
